@@ -1,0 +1,69 @@
+<!--
+John Scales
+CWID 888865730
+Class Number 335-04
+13602 Loumont st.
+Whittier, CA 90601
+23 November 2019
+3 Sort race
+This file contains all of the html for project 3.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>3-Sort-Race</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <h1>Sort Race</h1>
+    <h2>John Scales | 23 November 2019</h2>
+    <h3>
+This is a sorting race between 3 different sorting algorithms: Mergesort, Quicksort, and Bubblesort
+    </h3>
+    <canvas id="rotation" width="1200" height="650"></canvas>
+    <script src="./javascript.js"></script>
+    <script>
+    var canvas = document.getElementById( "rotation" );
+    var context = canvas.getContext( "2d" );
+    /////////////////////////////////////////////////
+    var arr = [];
+    arr.push("0, B, A, 3, 2, 8, 4, 7, 6, 5, 1, 9");
+    /*
+    arr.push("0A981A392011");
+    arr.push("1638940A52B7");
+    arr.push("19841B382625");
+    arr.push("297B401638A5");
+    arr.push("261094878626");
+    arr.push("3457192068BA");
+    arr.push("356AA023B724");
+    arr.push("4B6079A21835");
+    arr.push("40B06566710A");
+    arr.push("5281AB347906");
+    arr.push("5750684B8934");
+    arr.push("69872B3A5410");
+    arr.push("6A2305304781");
+    arr.push("701A693542B8");
+    */
+    var strindex = Math.floor((Math.random() * arr.length));
+    var strhex = arr[strindex].split(', ')
+    var strnum = hextonum(strhex)
+    var str1 = strnum
+    console.log(str1)
+    var sortedstr1 = quickSort(str1, 0, str1.length-1)
+    console.log(sortedstr1)
+    strhex = arr[strindex].split(', ')
+    strnum = hextonum(strhex)
+    var str2 = strnum
+    console.log(str2)
+    var sortedstr2 = bubbleSort(str2)
+    console.log(sortedstr2)
+    strhex = arr[strindex].split(', ')
+    strnum = hextonum(strhex)
+    var str3 = strnum
+    console.log(str3)
+    var sortedstr3 = mergeSort(str3)
+    console.log(sortedstr3)
+    </script>
+  </body>
+</html>
