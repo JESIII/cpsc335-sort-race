@@ -11,7 +11,7 @@ This file contains all of the js for project 3.
 //convert hex to base10
 function hextonum(aa){
   for (var i = 0; i<aa.length; i++){
-    console.log(aa[i])
+    //console.log(aa[i])
     switch(aa[i]){
       case '0':
       aa[i]=0;
@@ -73,97 +73,24 @@ function swap(obj, leftIndex, rightIndex){
     obj.items[leftIndex] = obj.items[rightIndex];
     obj.items[rightIndex] = temp;
 }
-function partition(obj) {
-    var pivot   = obj.items[Math.floor((obj.right + obj.left) / 2)], //middle element
-        i = obj.left, //left pointer
-        j = obj.right; //right pointer
-    while (i <= j) {
-        while (obj.items[i] < pivot) {
-            i++;
-        }
-        while (obj.items[j] > pivot) {
-            j--;
-        }
-        if (i <= j) {
-            swap(obj, i, j); //sawpping two elements
-            i++;
-            j--;
-        }
+function QuickSort(obj) {
+    var pivot = obj.items[obj.right], //highest
+        i = obj.left-1; //left pointer
+    for(var j = obj.left; j<=obj.right;j++){
+      if(obj.items[j]<pivot){
+        i++
+      }
     }
-    obj.index = i
-}
-function partitionl(obj) {
-    var pivot   = obj.items[Math.floor((obj.index-1 + obj.left) / 2)], //middle element
-        i = obj.left, //left pointer
-        j = obj.index-1; //right pointer
-    while (i <= j) {
-        while (obj.items[i] < pivot) {
-            i++;
-        }
-        while (obj.items[j] > pivot) {
-            j--;
-        }
-        if (i <= j) {
-            swap(obj, i, j); //sawpping two elements
-            i++;
-            j--;
-        }
-    }
-    obj.index = i
-}
-function partitionr(obj) {
-    var pivot   = obj.items[Math.floor((obj.right + obj.index) / 2)], //middle element
-        i = obj.index, //left pointer
-        j = obj.right; //right pointer
-    while (i <= j) {
-        while (obj.items[i] < pivot) {
-            i++;
-        }
-        while (obj.items[j] > pivot) {
-            j--;
-        }
-        if (i <= j) {
-            swap(obj, i, j); //sawpping two elements
-            i++;
-            j--;
-        }
-    }
-    obj.index = i
-}
-function quickSort(obj) {
-    var index;
-    if (obj.items.length > 1) {
-        index = partition(obj); //index returned from partition
-        if (obj.left < index - 1) { //more elements on the left side of the pivot
-            obj.side = 0; //quickSort(items, left, index - 1);
-        }
-        if (index < obj.right) { //more elements on the right side of the pivot
-            obj.side = 0; //quickSort(items, index, right);
-        }
-    }
-    return obj;
+    swap(obj,i+1,obj.right)
+    obj.index = i+1;
 }
 //////////////////////////////////////////////////////////////////////////////////
-function bubbleSort(a)
-{
-    var swapp;
-    var n = a.length-1;
-    var x=a;
-    do {
-        swapp = false;
-        for (var i=0; i < n; i++)
-        {
-            if (x[i] > x[i+1])
-            {
-               var temp = x[i];
-               x[i] = x[i+1];
-               x[i+1] = temp;
-               swapp = true;
-            }
-        }
-        n--;
-    } while (swapp);
- return x;
+function BubbleSort(obj, ctr){
+  for (var j=0; j< obj.length-ctr-2; j++){
+    if(obj.items[j]>obj.items[j+1]){
+      swap(obj,j,j+1)
+    }
+  }
 }
 //////////////////////////////////////////////////////////////////////
 function mergeSort (arr) {

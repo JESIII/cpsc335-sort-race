@@ -28,15 +28,14 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var context = canvas.getContext( "2d" );
     /////////////////////////////////////////////////
     var arr = [];
-    arr.push("0, B, A, 3, 2, 8, 4, 7, 6, 5, 1, 9");
-    /*
-    arr.push("0A981A392011");
-    arr.push("1638940A52B7");
-    arr.push("19841B382625");
-    arr.push("297B401638A5");
-    arr.push("261094878626");
-    arr.push("3457192068BA");
-    arr.push("356AA023B724");
+    arr.push("0, B, A, 3, 2, 8, 4, 7, 6, 5, 1, 9");/*
+    arr.push("0, A, 9, 8, 1, A, 3, 9, 2, 0, 1, 1");
+    arr.push("1, 6, 3, 8, 9, 4, 0, A, 5, 2, B, 7");
+    arr.push("1, 9, 8, 4, 1, B, 3, 8, 2, 6, 2, 5");
+    arr.push("2, 9, 7, B, 4, 0, 1, 6, 3, 8, A, 5");
+    arr.push("2, 6, 1, 0, 9, 4, 8, 7, 8, 6, 2, 6");
+    arr.push("3, 4, 5, 7, 1, 9, 2, 0, 6, 8, B, A");
+    arr.push("3, 5, 6, A, A, 0, 2, 3, B, 7, 2, 4");
     arr.push("4B6079A21835");
     arr.push("40B06566710A");
     arr.push("5281AB347906");
@@ -55,8 +54,19 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
       items: str1,
       left: 0,
       right: str1.length-1,
-      index: 0,
-      side: 3
+      index: str1.length-1,
+    }
+    var sortedstr2 = {
+      items: str1,
+      left: 0,
+      right: str1.length-1,
+      index: str1.length-1,
+    }
+    var sortedstr3 = {
+      items: str1,
+      left: 0,
+      right: str1.length-1,
+      index: str1.length-1,
     }
     console.log(sortedstr1.items)
     console.log(sortedstr1.items[6])
@@ -67,40 +77,20 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     //console.log(sortedstr1)
     var counter = 0
     const loopDrawRect = setInterval(() => {
-      if (sortedstr1.items.length > 1) {
-        //console.log("left: "+sortedstr1.left + " " + " index: "+sortedstr1.index)
-        //console.log("right: "+sortedstr1.right + " " + "index: "+sortedstr1.index)
-        if(sortedstr1.side == 3){
-          partition(sortedstr1);
-        }else if(sortedstr1.side == 0){
-          partitionl(sortedstr1);
-        }else if(sortedstr1.side == 1){
-          partitionr(sortedstr1);
-        }else{
-          console.log("Quicksort Done")
-        }
-           //index returned from partition
-          if (sortedstr1.left < sortedstr1.index - 1) { //more elements on the left side of the pivot
-            console.log("left")
-              sortedstr1.side = 0;//quickSort(items, left, index - 1);
-          }
-          else if (sortedstr1.index < sortedstr1.right) { //more elements on the right side of the pivot
-            console.log("right")
-              sortedstr1.side = 1; //quickSort(items, index, right);
-          }
-      }
+    console.log("QUICKSORT")
+    if(sortedstr1.left < sortedstr1.right){
       console.log(sortedstr1.items)
-
-
-
-
-
-
-
-
+      QuickSort(sortedstr1)
+      console.log(sortedstr1.items)
+    }
+    console.log("BUBBLESORT")
+    console.log(sortedstr2.items)
+    BubbleSort(sortedstr2, counter)
+    console.log(sortedstr2.items)
+    console.log("MERGESORT")
 
       counter++
-      if (counter == 15){
+      if (counter == 35){
         clearInterval(loopDrawRect);
       }
     }, 100)
