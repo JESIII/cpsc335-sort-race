@@ -49,9 +49,62 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var strhex = arr[strindex].split(', ')
     var strnum = hextonum(strhex)
     var str1 = strnum
+    var index
     console.log(str1)
-    var sortedstr1 = quickSort(str1, 0, str1.length-1)
-    console.log(sortedstr1)
+    var sortedstr1 = {
+      items: str1,
+      left: 0,
+      right: str1.length-1,
+      index: 0,
+      side: 3
+    }
+    console.log(sortedstr1.items)
+    console.log(sortedstr1.items[6])
+    console.log(sortedstr1.right)
+    console.log(sortedstr1.left)
+    console.log(sortedstr1.index)
+    //var sortedstr1 = quickSort(str1, 0, str1.length-1)
+    //console.log(sortedstr1)
+    var counter = 0
+    const loopDrawRect = setInterval(() => {
+      if (sortedstr1.items.length > 1) {
+        //console.log("left: "+sortedstr1.left + " " + " index: "+sortedstr1.index)
+        //console.log("right: "+sortedstr1.right + " " + "index: "+sortedstr1.index)
+        if(sortedstr1.side == 3){
+          partition(sortedstr1);
+        }else if(sortedstr1.side == 0){
+          partitionl(sortedstr1);
+        }else if(sortedstr1.side == 1){
+          partitionr(sortedstr1);
+        }else{
+          console.log("Quicksort Done")
+        }
+           //index returned from partition
+          if (sortedstr1.left < sortedstr1.index - 1) { //more elements on the left side of the pivot
+            console.log("left")
+              sortedstr1.side = 0;//quickSort(items, left, index - 1);
+          }
+          else if (sortedstr1.index < sortedstr1.right) { //more elements on the right side of the pivot
+            console.log("right")
+              sortedstr1.side = 1; //quickSort(items, index, right);
+          }
+      }
+      console.log(sortedstr1.items)
+
+
+
+
+
+
+
+
+
+      counter++
+      if (counter == 15){
+        clearInterval(loopDrawRect);
+      }
+    }, 100)
+    /*
     strhex = arr[strindex].split(', ')
     strnum = hextonum(strhex)
     var str2 = strnum
@@ -64,6 +117,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     console.log(str3)
     var sortedstr3 = mergeSort(str3)
     console.log(sortedstr3)
+    */
     </script>
   </body>
 </html>

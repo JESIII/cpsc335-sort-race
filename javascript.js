@@ -67,42 +67,81 @@ function hextonum(aa){
   return aa;
 }
 //Quicksort
-function swap(items, leftIndex, rightIndex){
-    var temp = items[leftIndex];
-    items[leftIndex] = items[rightIndex];
-    items[rightIndex] = temp;
+function swap(obj, leftIndex, rightIndex){
+    console.log("Swap "+obj.items[leftIndex] + " with " + obj.items[rightIndex])
+    var temp = obj.items[leftIndex];
+    obj.items[leftIndex] = obj.items[rightIndex];
+    obj.items[rightIndex] = temp;
 }
-function partition(items, left, right) {
-    var pivot   = items[Math.floor((right + left) / 2)], //middle element
-        i = left, //left pointer
-        j = right; //right pointer
+function partition(obj) {
+    var pivot   = obj.items[Math.floor((obj.right + obj.left) / 2)], //middle element
+        i = obj.left, //left pointer
+        j = obj.right; //right pointer
     while (i <= j) {
-        while (items[i] < pivot) {
+        while (obj.items[i] < pivot) {
             i++;
         }
-        while (items[j] > pivot) {
+        while (obj.items[j] > pivot) {
             j--;
         }
         if (i <= j) {
-            swap(items, i, j); //sawpping two elements
+            swap(obj, i, j); //sawpping two elements
             i++;
             j--;
         }
     }
-    return i;
+    obj.index = i
 }
-function quickSort(items, left, right) {
-    var index;
-    if (items.length > 1) {
-        index = partition(items, left, right); //index returned from partition
-        if (left < index - 1) { //more elements on the left side of the pivot
-            quickSort(items, left, index - 1);
+function partitionl(obj) {
+    var pivot   = obj.items[Math.floor((obj.index-1 + obj.left) / 2)], //middle element
+        i = obj.left, //left pointer
+        j = obj.index-1; //right pointer
+    while (i <= j) {
+        while (obj.items[i] < pivot) {
+            i++;
         }
-        if (index < right) { //more elements on the right side of the pivot
-            quickSort(items, index, right);
+        while (obj.items[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            swap(obj, i, j); //sawpping two elements
+            i++;
+            j--;
         }
     }
-    return items;
+    obj.index = i
+}
+function partitionr(obj) {
+    var pivot   = obj.items[Math.floor((obj.right + obj.index) / 2)], //middle element
+        i = obj.index, //left pointer
+        j = obj.right; //right pointer
+    while (i <= j) {
+        while (obj.items[i] < pivot) {
+            i++;
+        }
+        while (obj.items[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            swap(obj, i, j); //sawpping two elements
+            i++;
+            j--;
+        }
+    }
+    obj.index = i
+}
+function quickSort(obj) {
+    var index;
+    if (obj.items.length > 1) {
+        index = partition(obj); //index returned from partition
+        if (obj.left < index - 1) { //more elements on the left side of the pivot
+            obj.side = 0; //quickSort(items, left, index - 1);
+        }
+        if (index < obj.right) { //more elements on the right side of the pivot
+            obj.side = 0; //quickSort(items, index, right);
+        }
+    }
+    return obj;
 }
 //////////////////////////////////////////////////////////////////////////////////
 function bubbleSort(a)
