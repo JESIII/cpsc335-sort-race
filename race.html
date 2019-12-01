@@ -21,14 +21,20 @@ This file contains all of the html for project 3.
     <h3>
 This is a sorting race between 3 different sorting algorithms: Mergesort, Quicksort, and Bubblesort
     </h3>
-    <canvas id="rotation" width="1200" height="650"></canvas>
+    <canvas id="cx1" width="240" height="600"></canvas>
+    <canvas id="cx2" width="240" height="600"></canvas>
+    <canvas id="cx3" width="240" height="600"></canvas>
     <script src="./javascript.js"></script>
     <script>
-    var canvas = document.getElementById( "rotation" );
-    var context = canvas.getContext( "2d" );
+    var canvas = document.getElementById( "cx1" );
+    var cx1 = canvas.getContext( "2d" );
+    var canvas = document.getElementById( "cx2" );
+    var cx2 = canvas.getContext( "2d" );
+    var canvas = document.getElementById( "cx3" );
+    var cx3 = canvas.getContext( "2d" );
     /////////////////////////////////////////////////
     var arr = [];
-    arr.push("0, B, A, 3, 2, 8, 4, 7, 6, 5, 1, 9");/*
+    arr.push("0, B, A, 3, 2, 8, 4, 7, 6, 5, 1, 9");
     arr.push("0, A, 9, 8, 1, A, 3, 9, 2, 0, 1, 1");
     arr.push("1, 6, 3, 8, 9, 4, 0, A, 5, 2, B, 7");
     arr.push("1, 9, 8, 4, 1, B, 3, 8, 2, 6, 2, 5");
@@ -36,6 +42,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     arr.push("2, 6, 1, 0, 9, 4, 8, 7, 8, 6, 2, 6");
     arr.push("3, 4, 5, 7, 1, 9, 2, 0, 6, 8, B, A");
     arr.push("3, 5, 6, A, A, 0, 2, 3, B, 7, 2, 4");
+    /*
     arr.push("4B6079A21835");
     arr.push("40B06566710A");
     arr.push("5281AB347906");
@@ -50,47 +57,67 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var str1 = strnum
     var index
     console.log(str1)
-    var sortedstr1 = {
+    var qsmgr = {
+      items: str1,
+      left: 0,
+      right: str1.length-1,
+      pivot: 0
+    }
+    var bbsmgr = {
+      items: str1,
+      curpos: 0,
+      ctr:0,
+      swap:0,
+      done:false
+
+    }
+    var mrgmgr = {
       items: str1,
       left: 0,
       right: str1.length-1,
       index: str1.length-1,
     }
-    var sortedstr2 = {
-      items: str1,
-      left: 0,
-      right: str1.length-1,
-      index: str1.length-1,
-    }
-    var sortedstr3 = {
-      items: str1,
-      left: 0,
-      right: str1.length-1,
-      index: str1.length-1,
-    }
+    /*
     console.log(sortedstr1.items)
     console.log(sortedstr1.items[6])
     console.log(sortedstr1.right)
     console.log(sortedstr1.left)
     console.log(sortedstr1.index)
+    */
     //var sortedstr1 = quickSort(str1, 0, str1.length-1)
     //console.log(sortedstr1)
+    var bsdone = false
+    var bssteps = 0
     var counter = 0
     const loopDrawRect = setInterval(() => {
+
+    /*
     console.log("QUICKSORT")
     if(sortedstr1.left < sortedstr1.right){
       console.log(sortedstr1.items)
       QuickSort(sortedstr1)
       console.log(sortedstr1.items)
     }
-    console.log("BUBBLESORT")
-    console.log(sortedstr2.items)
-    BubbleSort(sortedstr2, counter)
-    console.log(sortedstr2.items)
-    console.log("MERGESORT")
+    */
+
+    
+    if(bbsmgr.done == false){
+      bssteps++
+      console.log("BUBBLESORT STEP #"+bssteps)
+      console.log(bbsmgr.items)
+      BubbleSort(bbsmgr, counter)
+      console.log(bbsmgr.items)
+    }else if(bsdone==false){
+      console.log("BUBBLESORT DONE IN "+bssteps+" STEPS")
+      bsdone = true
+    }else{
+
+    }
+
+    //console.log("MERGESORT")
 
       counter++
-      if (counter == 35){
+      if (counter == 60){
         clearInterval(loopDrawRect);
       }
     }, 100)

@@ -86,14 +86,28 @@ function QuickSort(obj) {
 }
 //////////////////////////////////////////////////////////////////////////////////
 function BubbleSort(obj, ctr){
-  for (var j=0; j< obj.length-ctr-2; j++){
+  //console.log(ctr)
+  for (var j=obj.curpos; j < obj.items.length-obj.ctr-1; j++){
+    //console.log(j)
     if(obj.items[j]>obj.items[j+1]){
+      obj.swap++
       swap(obj,j,j+1)
+      obj.curpos=j+1
+      break
     }
+  }
+  if(j==obj.items.length-1-obj.ctr){
+    if(obj.swap == 0){
+      obj.done=true
+      return
+    }
+    obj.swap=0
+    obj.ctr++
+    obj.curpos=0
   }
 }
 //////////////////////////////////////////////////////////////////////
-function mergeSort (arr) {
+function mergeSort (obj) {
     if (arr.length < 2) {
       return arr;
     }

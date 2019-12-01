@@ -14,5 +14,9 @@ body {
   font-family: sans-serif;
 }
 canvas {
-  background-color: Black;
+  background-color: black;
+}
+.column {
+  float: left;
+  width: 33.33%;
 }
