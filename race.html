@@ -56,12 +56,14 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var strnum = hextonum(strhex)
     var str1 = strnum
     var index
-    console.log(str1)
+    //console.log(str1)
     var qsmgr = {
       items: str1,
-      left: 0,
-      right: str1.length-1,
-      pivot: 0
+      pivot: str1.length-1,
+      low:0,
+      high:str1.length-1,
+      i:this.low-1,
+      j:this.low
     }
     var bbsmgr = {
       items: str1,
@@ -86,8 +88,12 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     */
     //var sortedstr1 = quickSort(str1, 0, str1.length-1)
     //console.log(sortedstr1)
+    ////////////////////////////
+    //SOME BUBBLESORT TRACKERS//
+    ////////////////////////////
     var bsdone = false
     var bssteps = 0
+    ///////////////////////////
     var counter = 0
     const loopDrawRect = setInterval(() => {
 
@@ -99,8 +105,12 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
       console.log(sortedstr1.items)
     }
     */
-
-    
+    console.log(qsmgr.items)
+    QuickSort(qsmgr, qsmgr.low,qsmgr.high)
+    QuickSort(obj,low,pivot-1)
+    QuickSort(obj,pivot+1,high)
+    console.log(qsmgr.items)
+    /*
     if(bbsmgr.done == false){
       bssteps++
       console.log("BUBBLESORT STEP #"+bssteps)
@@ -113,11 +123,11 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     }else{
 
     }
-
+    */
     //console.log("MERGESORT")
 
       counter++
-      if (counter == 60){
+      if (counter == 1){
         clearInterval(loopDrawRect);
       }
     }, 100)

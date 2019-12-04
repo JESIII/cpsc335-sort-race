@@ -66,25 +66,41 @@ function hextonum(aa){
   //console.log(aa);
   return aa;
 }
-//Quicksort
+/////////////////
+//SWAP FUNCTION//
+/////////////////
 function swap(obj, leftIndex, rightIndex){
     console.log("Swap "+obj.items[leftIndex] + " with " + obj.items[rightIndex])
     var temp = obj.items[leftIndex];
     obj.items[leftIndex] = obj.items[rightIndex];
     obj.items[rightIndex] = temp;
 }
-function QuickSort(obj) {
-    var pivot = obj.items[obj.right], //highest
-        i = obj.left-1; //left pointer
-    for(var j = obj.left; j<=obj.right;j++){
-      if(obj.items[j]<pivot){
-        i++
-      }
+/////////////
+//QUICKSORT//
+/////////////
+function QuickSort(obj, low, high) {
+    if(low<high){
+      obj.pivot = QSPart(obj,low,high)
     }
-    swap(obj,i+1,obj.right)
-    obj.index = i+1;
 }
-//////////////////////////////////////////////////////////////////////////////////
+function QSPart(obj,low,high){
+  var pivot = obj.items[high],
+  i = low-1;
+  for(var j = low; j<= high-1;j++){
+    if(obj.items[j]<pivot){
+      i++
+      obj.i = i
+      obj.j = j
+      swap(obj,i,j)
+      return
+    }
+  }
+  swap(obj,i+1,high)
+  return i+1
+}
+///////////////
+//BUBBLESORT//
+//////////////
 function BubbleSort(obj, ctr){
   //console.log(ctr)
   for (var j=obj.curpos; j < obj.items.length-obj.ctr-1; j++){
