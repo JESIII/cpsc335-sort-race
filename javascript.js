@@ -78,7 +78,7 @@ function swap(obj, leftIndex, rightIndex){
 /////////////
 //QUICKSORT//
 /////////////
-function partition(items, left, right) {
+function partition(items, left, right,obj) {
     var pivot   = items[Math.floor((right + left) / 2)], //middle element
         i       = left, //left pointer
         j       = right; //right pointer
@@ -90,7 +90,7 @@ function partition(items, left, right) {
             j--;
         }
         if (i <= j) {
-            swap(items, i, j); //sawpping two elements
+            swap(obj, i, j); //sawpping two elements
             i++;
             j--;
         }
@@ -98,19 +98,20 @@ function partition(items, left, right) {
     return i;
 }
 
-function quickSort(obj,items, left, right) {
-    var index;
+function quickSort(items, left, right,obj) {
+    //var index;
     if (items.length > 1) {
-        index = partition(items, left, right); //index returned from partition
-        if (left < index - 1) { //more elements on the left side of the pivot
+        obj.index = partition(obj.items, obj.left, obj.right,obj); //index returned from partition
+        if (obj.left < obj.index - 1) { //more elements on the left side of the pivot
           obj.nextop = 1
           //quickSort(items, left, index - 1);
         }
-        if (index < right) { //more elements on the right side of the pivot
+        if (obj.index < obj.right) { //more elements on the right side of the pivot
           obj.nextop = 2
           //quickSort(items, index, right);
         }
     }
+    return items;
 }
 ///////////////
 //BUBBLESORT//
