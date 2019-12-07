@@ -59,11 +59,10 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     //console.log(str1)
     var qsmgr = {
       items: str1,
-      pivot: str1.length-1,
-      low:0,
-      high:str1.length-1,
-      i:this.low-1,
-      j:this.low
+      pvt: 0,
+      pvtval: str1[0],
+      i:1,
+      j:str1.length-1
     }
     var bbsmgr = {
       items: str1,
@@ -106,9 +105,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     }
     */
     console.log(qsmgr.items)
-    QuickSort(qsmgr, qsmgr.low,qsmgr.high)
-    QuickSort(obj,low,pivot-1)
-    QuickSort(obj,pivot+1,high)
+    QuickSort(qsmgr)
     console.log(qsmgr.items)
     /*
     if(bbsmgr.done == false){
@@ -127,7 +124,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     //console.log("MERGESORT")
 
       counter++
-      if (counter == 1){
+      if (counter == 5){
         clearInterval(loopDrawRect);
       }
     }, 100)
