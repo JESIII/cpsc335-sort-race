@@ -103,15 +103,16 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
       ////////////////////////
       //MERGESORT////////////
       ////////////////////////
+      /*
       if(counter==0)console.log(mrgmgr.result)
       currlen = mrgmgr.result.length
       var tester = 0
       while(mrgmgr.result.length>=1 && seperatedone == false){
         var workon = mrgmgr.result.pop()
-        /*
-        console.log("workon")
-        console.log(workon);
-        */
+
+        //console.log("workon")
+        //console.log(workon);
+
         var halfwaypt = Math.floor(workon.length/2)
         var a = []
         var b = []
@@ -123,12 +124,10 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
         for (var i = halfwaypt; i<workon.length; i++){
           b.push(workon[i])
         }
-        /*
-        console.log("a")
-        console.log(a)
-        console.log("b")
-        console.log(b)
-        */
+        //console.log("a")
+        //console.log(a)
+        //console.log("b")
+        //console.log(b)
         if(a.length!=0){mrgmgr.result.unshift(a)}
         else{
           seperatedone = true
@@ -163,26 +162,11 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
         console.log("mergesort done in " + counter + " steps!")
         mergesortcomplete = false
       }
+      */
     ////////////////////////
     //QUICKSORT////////////
     ////////////////////////
-    /*
-    console.log("QUICKSORT")
-    if(sortedstr1.left < sortedstr1.right){
-      console.log(sortedstr1.items)
-      QuickSort(sortedstr1)
-      console.log(sortedstr1.items)
-    }
-    */
-    /*
-    console.log(qsmgr.items)
-    if(counter==0){
-      partition(qsmgr)
-    }else{
-      quickSort(qsmgr)
-    }
-    console.log(qsmgr.items)
-    */
+    quickSortIterative(qsmgr.items, qsmgr.left,qsmgr.right)
     ////////////////////////
     //BUBBLESORT////////////
     ////////////////////////

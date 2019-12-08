@@ -94,6 +94,7 @@ function partition (arr, low, high) {
     var temp = arr[i + 1];
     arr[i + 1] = arr[high];
     arr[high] = temp;
+    console.log(arr)
     return i + 1;
 }
 function quickSortIterative (arr, l, h) {
@@ -106,7 +107,7 @@ function quickSortIterative (arr, l, h) {
         {
             h = stack[top--];
             l = stack[top--];
-            var p = QuickSort.partition(arr, l, h);
+            var p = partition(arr, l, h);
             if (p - 1 > l) {
                 stack[++top] = l;
                 stack[++top] = p - 1;
