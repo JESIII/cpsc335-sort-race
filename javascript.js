@@ -78,43 +78,32 @@ function swap(obj, leftIndex, rightIndex){
 /////////////
 //QUICKSORT//
 /////////////
-function partition(obj) {
-    obj.pivot   = obj.items[Math.floor((obj.right + obj.left) / 2)] //middle element
-        i       = obj.left //left pointer
-        j       = obj.right //right pointer
-    while (i <= j) {
-        while (obj.items[obj.i] < obj.pivot) {
-            i++;
+function partition (arr, low, high) {
+        var pivot = arr[high];
+        var i = (low - 1);
+        for (var j = low; j <= high - 1; j++) {
+            {
+                if (arr[j] <= pivot) {
+                    i++;
+                    var temp_1 = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp_1;
+                }
+            }
+            ;
         }
-        while (obj.items[obj.j] > obj.pivot) {
-            j--;
-        }
-        if (i <= j) {
-            swap(obj, i, j); //sawpping two elements
-            i++;
-            j--;
+        var temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        return i + 1;
+    }
+    function QuickSort(arr, low, high) {
+        if (low < high) {
+            var pi = partition(arr, low, high);
+            QuickSort(arr, low, pi - 1);
+            QuickSort(arr, pi + 1, high);
         }
     }
-    obj.index = obj.i;
-}
-
-function quickSort(obj) {
-    //var index;
-    if (obj.items.length > 1) {
-        //obj.index = partition(obj.items, obj.left, obj.right,obj); //index returned from partition
-        if (obj.left < obj.index - 1) { //more elements on the left side of the pivot
-          //obj.nextop = 1
-          partition(obj.items, obj.left, obj.right,obj)
-          //quickSort(items, left, index - 1);
-        }
-        if (obj.index < obj.right) { //more elements on the right side of the pivot
-          //obj.nextop = 2
-          partition(obj.items, obj.left, obj.right,obj)
-          //quickSort(items, index, right);
-        }
-    }
-    //return items;
-}
 ///////////////
 //BUBBLESORT//
 //////////////
