@@ -79,31 +79,45 @@ function swap(obj, leftIndex, rightIndex){
 //QUICKSORT//
 /////////////
 function partition (arr, low, high) {
-        var pivot = arr[high];
-        var i = (low - 1);
-        for (var j = low; j <= high - 1; j++) {
-            {
-                if (arr[j] <= pivot) {
-                    i++;
-                    var temp_1 = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp_1;
-                }
+    var pivot = arr[high];
+    var i = (low - 1);
+    for (var j = low; j <= high - 1; j++) {
+        {
+            if (arr[j] <= pivot) {
+                i++;
+                var temp_1 = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp_1;
             }
-            ;
-        }
-        var temp = arr[i + 1];
-        arr[i + 1] = arr[high];
-        arr[high] = temp;
-        return i + 1;
-    }
-    function QuickSort(arr, low, high) {
-        if (low < high) {
-            var pi = partition(arr, low, high);
-            QuickSort(arr, low, pi - 1);
-            QuickSort(arr, pi + 1, high);
         }
     }
+    var temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+    return i + 1;
+}
+function quickSortIterative (arr, l, h) {
+    var stack = (function (s) { var a = []; while (s-- > 0)
+        a.push(0); return a; })(h - l + 1);
+    var top = -1;
+    stack[++top] = l;
+    stack[++top] = h;
+    while ((top >= 0)) {
+        {
+            h = stack[top--];
+            l = stack[top--];
+            var p = QuickSort.partition(arr, l, h);
+            if (p - 1 > l) {
+                stack[++top] = l;
+                stack[++top] = p - 1;
+            }
+            if (p + 1 < h) {
+                stack[++top] = p + 1;
+                stack[++top] = h;
+            }
+        }
+    }
+}
 ///////////////
 //BUBBLESORT//
 //////////////
