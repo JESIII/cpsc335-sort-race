@@ -78,15 +78,15 @@ function swap(obj, leftIndex, rightIndex){
 /////////////
 //QUICKSORT//
 /////////////
-function partition(items, left, right,obj) {
-    var pivot   = items[Math.floor((right + left) / 2)], //middle element
-        i       = left, //left pointer
-        j       = right; //right pointer
+function partition(obj) {
+    obj.pivot   = obj.items[Math.floor((obj.right + obj.left) / 2)] //middle element
+        i       = obj.left //left pointer
+        j       = obj.right //right pointer
     while (i <= j) {
-        while (items[i] < pivot) {
+        while (obj.items[obj.i] < obj.pivot) {
             i++;
         }
-        while (items[j] > pivot) {
+        while (obj.items[obj.j] > obj.pivot) {
             j--;
         }
         if (i <= j) {
@@ -95,23 +95,25 @@ function partition(items, left, right,obj) {
             j--;
         }
     }
-    return i;
+    obj.index = obj.i;
 }
 
-function quickSort(items, left, right,obj) {
+function quickSort(obj) {
     //var index;
-    if (items.length > 1) {
-        obj.index = partition(obj.items, obj.left, obj.right,obj); //index returned from partition
+    if (obj.items.length > 1) {
+        //obj.index = partition(obj.items, obj.left, obj.right,obj); //index returned from partition
         if (obj.left < obj.index - 1) { //more elements on the left side of the pivot
-          obj.nextop = 1
+          //obj.nextop = 1
+          partition(obj.items, obj.left, obj.right,obj)
           //quickSort(items, left, index - 1);
         }
         if (obj.index < obj.right) { //more elements on the right side of the pivot
-          obj.nextop = 2
+          //obj.nextop = 2
+          partition(obj.items, obj.left, obj.right,obj)
           //quickSort(items, index, right);
         }
     }
-    return items;
+    //return items;
 }
 ///////////////
 //BUBBLESORT//
@@ -138,21 +140,48 @@ function BubbleSort(obj, ctr){
   }
 }
 //////////////////////////////////////////////////////////////////////
+let ops = 0;  // for performance evaluation only
+
 function mergeSort (obj) {
-    if (arr.length < 2) {
-      return arr;
+  // break array into individual arrays of single integers
+  // keep merging until result contains a single array
+  //while (result.length > 1) {
+    const oddNumbered = obj.result.length % 2 != 0;
+    let temp = [];
+
+    // iterate 2 subarrays at a time and merge into larger subarray
+    for (let i = 0; i < obj.result.length; i += 2) {
+      let a = obj.result[i];
+      let b = obj.result[i + 1];
+
+      // pre-merge 3 subarrays into 2 if there are odd number of subarrays
+      if (oddNumbered && i == (obj.result.length - 3)) {
+        b = merge(b, obj.result[i + 2]);
+        i++;
+      }
+      // accumulate intermediate result
+      temp.push(merge(a, b));
     }
-
-    var mid = Math.floor(arr.length / 2);
-    var subLeft = mergeSort(arr.slice(0, mid));
-    var subRight = mergeSort(arr.slice(mid));
-
-    return merge(subLeft, subRight);
+    // current level merged, update result
+    obj.result = temp;
+  //}
+  return obj.result;
 }
 
-function merge (node1, node2) {
-    var result = [];
-    while (node1.length > 0 && node2.length > 0)
-        result.push(node1[0] < node2[0]? node1.shift() : node2.shift());
-    return result.concat(node1.length? node1 : node2);
+function merge (arrA, arrB) {
+  const merged = [];
+  var j = 0;
+  var k = 0;
+
+  while (merged.length != (arrA.length + arrB.length)) {
+    ops++;
+    if (arrB[k] == undefined || arrA[j] <= arrB[k]) {
+      merged.push(arrA[j]);
+      j++;
+    } else if (arrA[j] == undefined || arrA[j] > arrB[k]) {
+      merged.push(arrB[k]);
+      k++;
+    }
+  }
+  return merged;
 }
