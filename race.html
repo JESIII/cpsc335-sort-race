@@ -76,10 +76,9 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     }
     var mrgmgr = {
       items: str1,
-      result: [],
-      results: []
+      result: []
     }
-    mrgmgr.results.push(str1)
+    mrgmgr.result.push(str1)
     ////////////////////////////
     //SOME BUBBLESORT TRACKERS//
     ////////////////////////////
@@ -87,58 +86,70 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var bssteps = 0
     ///////////////////////////
     var counter = 0
-    var counter2=0;
     var seperatedone = false
-    var makeresults = false
-    var upperlim;
-    var resultslen
+    var makeresult = false
     var printmerge =false
+    var mergesortcomplete = false
     const loopDrawRect = setInterval(() => {
+      //console.log(counter)
       ////////////////////////
       //MERGESORT////////////
       ////////////////////////
-      if(counter == 0){
-        console.log(mrgmgr.results)
-      }
-      if(seperatedone == false){
-      upperlim = mrgmgr.results.length
-      //var j = 0;
-      //while(results.length>=1){
-        var workon = results.pop
-      for(var j = counter2; j < upperlim; j++){
-        counter2++
-        var halfwaypt = Math.floor(mrgmgr.results[j].length/2)
+      if(counter==0)console.log(mrgmgr.result)
+      while(mrgmgr.result.length>=1 && seperatedone == false){
+        var workon = mrgmgr.result.pop()
+        /*
+        console.log("workon")
+        console.log(workon);
+        */
+        var halfwaypt = Math.floor(workon.length/2)
         var a = []
         var b = []
         a.length=0
         b.length=0
         for (var i = 0; i<halfwaypt; i++){
-          a.push(mrgmgr.results[j][i])
+          a.push(workon[i])
         }
-        for (var i = halfwaypt; i<mrgmgr.results[j].length; i++){
-          b.push(mrgmgr.results[j][i])
+        for (var i = halfwaypt; i<workon.length; i++){
+          b.push(workon[i])
         }
-        resultslen = mrgmgr.results.length
-        //mrgmgr.results.length = 0
-        console.log(upperlim)
-        if(a.length!=0){mrgmgr.results.push(a)}
-        else{seperatedone = true}
-        if(b.length!=0){mrgmgr.results.push(b)}
-        else{seperatedone = true}
+        /*
+        console.log("a")
+        console.log(a)
+        console.log("b")
+        console.log(b)
+        */
+        if(a.length!=0){mrgmgr.result.unshift(a)}
+        else{
+          seperatedone = true
+          for(var j = 0; j < mrgmgr.result.length;j++){
+            if(mrgmgr.result[j].length>1)seperatedone = false
+          }
+        }
+        if(b.length!=0){mrgmgr.result.unshift(b)}
+        else{
+          seperatedone = true
+          for(var j = 0; j < mrgmgr.result.length;j++){
+            if(mrgmgr.result[j].length>1)seperatedone = false
+          }
+        }
+        workon.length = 0
+        console.log("mrgmgr result")
+        console.log(mrgmgr.result)
+        break
       }
-      console.log(mrgmgr.results)
-    }else if(makeresults == false){
-      makeresults = true
-      for(var i = upperlim; i<mrgmgr.results.length;i++){
-        mrgmgr.result.push(mrgmgr.results[i])
+      if(seperatedone == true && printmerge == false){
+        console.log("Mergesort seperation done in "+ counter +" steps!")
+        console.log(mrgmgr.result)
+        console.log(mergeSort(mrgmgr))
+        printmerge = true
+      }else if(seperatedone == true && printmerge == true&&mrgmgr.result.length>1){
+        console.log(mergeSort(mrgmgr))
+        mergesortcomplete = true
+      }else if (mergesortcomplete == true){
+        console.log("mergesort done in " + counter + " steps!")
+        mergesortcomplete = false
       }
-      console.log(mrgmgr.result)
-    }else if(mrgmgr.result.length>1){
-      console.log(mergeSort(mrgmgr))
-    }else if(printmerge == false){
-      console.log("Mergesort done in "+(counter+1)+" steps!")
-      printmerge =true
-    }
     ////////////////////////
     //QUICKSORT////////////
     ////////////////////////
@@ -179,7 +190,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     //console.log("MERGESORT")
 
       counter++
-      if (counter == 10){
+      if (counter == 20){
         clearInterval(loopDrawRect);
       }
     }, 100)
