@@ -90,12 +90,15 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var makeresult = false
     var printmerge =false
     var mergesortcomplete = false
+    var currlen
     const loopDrawRect = setInterval(() => {
       //console.log(counter)
       ////////////////////////
       //MERGESORT////////////
       ////////////////////////
       if(counter==0)console.log(mrgmgr.result)
+      currlen = mrgmgr.result.length
+      var tester = 0
       while(mrgmgr.result.length>=1 && seperatedone == false){
         var workon = mrgmgr.result.pop()
         /*
@@ -134,9 +137,12 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
           }
         }
         workon.length = 0
-        console.log("mrgmgr result")
-        console.log(mrgmgr.result)
-        break
+        tester++
+        if(tester == currlen){
+          console.log("mrgmgr result")
+          console.log(mrgmgr.result)
+          break
+        }
       }
       if(seperatedone == true && printmerge == false){
         console.log("Mergesort seperation done in "+ counter +" steps!")
