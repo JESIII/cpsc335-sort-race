@@ -21,9 +21,9 @@ This file contains all of the html for project 3.
     <h3>
 This is a sorting race between 3 different sorting algorithms: Mergesort, Quicksort, and Bubblesort
     </h3>
-    <canvas id="cx1" width="240" height="600"></canvas>
-    <canvas id="cx2" width="240" height="600"></canvas>
-    <canvas id="cx3" width="240" height="600"></canvas>
+    <canvas id="cx1" width="340" height="600"></canvas>
+    <canvas id="cx2" width="340" height="600"></canvas>
+    <canvas id="cx3" width="340" height="600"></canvas>
     <script src="./javascript.js"></script>
     <script>
     var canvas = document.getElementById( "cx1" );
@@ -58,14 +58,15 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     arr.push("B, 8, A, 4, 6, 3, 7, 9, 0, 1, 5, 2");
     arr.push("A, 3, 9, 5, 9, A, 2, 2, A, 4, 4, 4");
     arr.push("B, 6, 0, 0, 5, A, 6, 2, 7, B, 2, 3");
-    var strindex = Math.floor((Math.random() * arr.length));
-    var strhex = arr[strindex].split(', ')
-    var strnum = hextonum(strhex)
-    var str1 = strnum
+    const strindex = Math.floor((Math.random() * arr.length));
+    const strhex = arr[strindex].split(', ')
+    const strnum = hextonum(strhex)
+    const str1 = strnum
     var index
     //console.log(str1)
-    var qsmgr = {
-      items: str1,
+    const qsmgr = {
+      name:"qs",
+      items: [],
       right:str1.length - 1,
       left:0,
       index: 0,
@@ -73,18 +74,22 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
       j: this.right,
       pivot: 0
     }
-    var bbsmgr = {
-      items: str1,
+    const bbsmgr = {
+      name:"bb",
+      items: [],
       curpos: 0,
       ctr:0,
       swap:0,
       done:false
-
     }
-    var mrgmgr = {
-      items: str1,
+    const mrgmgr = {
+      name:"mrg",
+      items: [],
       result: []
     }
+    mrgmgr.items = str1
+    bbsmgr.items = str1
+    qsmgr.items = str1
     mrgmgr.result.push(str1)
     ////////////////////////////
     //SOME BUBBLESORT TRACKERS//
@@ -98,21 +103,29 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     var printmerge =false
     var mergesortcomplete = false
     var currlen
+    var mrgstep = 0;
+    var bbswap = []
+    var qsswap = []
+    var mrgswap = []
+    drawBubbleText( cx1, "BUBBLESORT", 45, 20 )
+    drawMrgText( cx2, "MERGESORT", 45, 20,0 )
+    //drawQuickText( cx3, "QUICKSORT", 45, 20 )
     const loopDrawRect = setInterval(() => {
-      //console.log(counter)
       ////////////////////////
       //MERGESORT////////////
       ////////////////////////
       /*
-      if(counter==0)console.log(mrgmgr.result)
+      //console.log(bbsmgr.items)
+      if(counter==0){console.log(mrgmgr.result)
+      drawMrgArray(mrgmgr.result, mrgstep)
+      mrgstep++
+      console.log(bbsmgr.items)
+      }
       currlen = mrgmgr.result.length
       var tester = 0
       while(mrgmgr.result.length>=1 && seperatedone == false){
         var workon = mrgmgr.result.pop()
-
-        //console.log("workon")
-        //console.log(workon);
-
+        console.log(bbsmgr.items)
         var halfwaypt = Math.floor(workon.length/2)
         var a = []
         var b = []
@@ -124,10 +137,6 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
         for (var i = halfwaypt; i<workon.length; i++){
           b.push(workon[i])
         }
-        //console.log("a")
-        //console.log(a)
-        //console.log("b")
-        //console.log(b)
         if(a.length!=0){mrgmgr.result.unshift(a)}
         else{
           seperatedone = true
@@ -145,24 +154,36 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
         workon.length = 0
         tester++
         if(tester == currlen){
-          console.log("mrgmgr result")
+          console.log("Merge Pass: " + mrgstep)
+          mrgstep++
           console.log(mrgmgr.result)
+          drawMrgArray(mrgmgr.result, mrgstep)
           break
         }
+        console.log(bbsmgr.items)
       }
       if(seperatedone == true && printmerge == false){
-        console.log("Mergesort seperation done in "+ counter +" steps!")
-        console.log(mrgmgr.result)
-        console.log(mergeSort(mrgmgr))
+        //console.log("Mergesort seperation done in "+ counter +" steps!")
+        console.log("Merge Pass: " + mrgstep)
+        mrgstep++
+        var dankkkk = mergeSort(mrgmgr)
+        console.log(dankkkk)
+        drawMrgArray(dankkkk, mrgstep)
         printmerge = true
       }else if(seperatedone == true && printmerge == true&&mrgmgr.result.length>1){
-        console.log(mergeSort(mrgmgr))
+        console.log("Merge Pass: " + mrgstep)
+        mrgstep++
+        var dankkkk = mergeSort(mrgmgr)
+        console.log(dankkkk)
+        drawMrgArray(dankkkk, mrgstep)
         mergesortcomplete = true
       }else if (mergesortcomplete == true){
-        console.log("mergesort done in " + counter + " steps!")
+        console.log("mergesort done in " + counter + " passes!")
+        drawMrgText( cx2, "Mergesort done in "+ counter+ " passes!", 0, mrgstep*25+45,0 )
         mergesortcomplete = false
       }
       */
+      //console.log(bbsmgr.items)
     ////////////////////////
     //QUICKSORT////////////
     ////////////////////////
@@ -173,38 +194,30 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     /*
     if(bbsmgr.done == false){
       bssteps++
-      console.log("BUBBLESORT STEP #"+bssteps)
       console.log(bbsmgr.items)
+      drawBubbleArray(bbsmgr.items, bssteps)
+      bbswap.length = 0;
+      console.log("BUBBLESORT PASS #"+bssteps)
       BubbleSort(bbsmgr, counter)
-      console.log(bbsmgr.items)
+      console.log(bbswap)
+      console.log(bbswap.length)
+
+
     }else if(bsdone==false){
-      console.log("BUBBLESORT DONE IN "+bssteps+" STEPS")
+      console.log(bbsmgr.items)
+      console.log("BUBBLESORT DONE IN "+bssteps+" PASSES")
+      drawBubbleText( cx1, "Bubblesort done in "+ bssteps+ " steps!", 0, bssteps*25+45 )
       bsdone = true
     }else{
 
     }
     */
-    //console.log("MERGESORT")
-
       counter++
-      if (counter == 20){
-        clearInterval(loopDrawRect);
-      }
-    }, 100)
-    /*
-    strhex = arr[strindex].split(', ')
-    strnum = hextonum(strhex)
-    var str2 = strnum
-    console.log(str2)
-    var sortedstr2 = bubbleSort(str2)
-    console.log(sortedstr2)
-    strhex = arr[strindex].split(', ')
-    strnum = hextonum(strhex)
-    var str3 = strnum
-    console.log(str3)
-    var sortedstr3 = mergeSort(str3)
-    console.log(sortedstr3)
-    */
+    if (counter == 10){
+      clearInterval(loopDrawRect);
+    }
+  }, 100)
+
     </script>
   </body>
 </html>
