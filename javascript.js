@@ -182,7 +182,7 @@ function swap(obj, leftIndex, rightIndex){
 /////////////
 //QUICKSORT//
 /////////////
-function partition (arr, low, high) {
+function partition (obj) {
     var pivot = arr[high];
     var i = (low - 1);
     for (var j = low; j <= high - 1; j++) {
@@ -198,27 +198,26 @@ function partition (arr, low, high) {
     var temp = arr[i + 1];
     arr[i + 1] = arr[high];
     arr[high] = temp;
-    console.log(arr)
     return i + 1;
 }
-function quickSortIterative (arr, l, h) {
+function quickSortIterative (obj) {
     var stack = (function (s) { var a = []; while (s-- > 0)
-        a.push(0); return a; })(h - l + 1);
+        a.push(0); return a; })(obj.h - obj.l + 1);
     var top = -1;
-    stack[++top] = l;
-    stack[++top] = h;
+    stack[++top] = obj.l;
+    stack[++top] = obj.h;
     while ((top >= 0)) {
         {
-            h = stack[top--];
-            l = stack[top--];
-            var p = partition(arr, l, h);
-            if (p - 1 > l) {
-                stack[++top] = l;
+            obj.h = stack[top--];
+            obj.l = stack[top--];
+            var p = partition(obj);
+            if (p - 1 > obj.l) {
+                stack[++top] = obj.l;
                 stack[++top] = p - 1;
             }
-            if (p + 1 < h) {
+            if (p + 1 < obj.h) {
                 stack[++top] = p + 1;
-                stack[++top] = h;
+                stack[++top] = obj.h;
             }
         }
     }
