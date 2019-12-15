@@ -6,7 +6,7 @@ Class Number 335-04
 Whittier, CA 90601
 23 November 2019
 3 Sort race
-This file contains all of the js for project 3.
+This file contains most of the js for project 3.
 */
 //convert hex to base10
 function inArray(key, arr){
@@ -170,9 +170,6 @@ function swap(obj, leftIndex, rightIndex){
   }else if(obj.name == "mrg"){
     mrgswap.push(obj.items[leftIndex])
     mrgswap.push(obj.items[rightIndex])
-  }else if(obj.name == "qs"){
-    qsswap.push(obj.items[leftIndex])
-    qsswap.push(obj.items[rightIndex])
   }
     console.log("Swap "+obj.items[leftIndex] + " with " + obj.items[rightIndex])
     var temp = obj.items[leftIndex];
@@ -182,45 +179,35 @@ function swap(obj, leftIndex, rightIndex){
 /////////////
 //QUICKSORT//
 /////////////
-function partition (obj) {
-    var pivot = arr[high];
-    var i = (low - 1);
-    for (var j = low; j <= high - 1; j++) {
-        {
-            if (arr[j] <= pivot) {
-                i++;
-                var temp_1 = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp_1;
-            }
-        }
+function partition (obj,l,h) {
+  let pivot = obj.items[l]
+  let high = l + 1
+  let low = h
+  while(high<low){
+    while(obj.items[high]<pivot){
+      high++
     }
-    var temp = arr[i + 1];
-    arr[i + 1] = arr[high];
-    arr[high] = temp;
-    return i + 1;
+    while(obj.items[low]>pivot){
+      low--
+    }
+    swap(obj,l,h)
+  }
+  obj.pivot = low;
+  qsfinal.push(obj.items[obj.pivot])
 }
-function quickSortIterative (obj) {
-    var stack = (function (s) { var a = []; while (s-- > 0)
-        a.push(0); return a; })(obj.h - obj.l + 1);
-    var top = -1;
-    stack[++top] = obj.l;
-    stack[++top] = obj.h;
-    while ((top >= 0)) {
-        {
-            obj.h = stack[top--];
-            obj.l = stack[top--];
-            var p = partition(obj);
-            if (p - 1 > obj.l) {
-                stack[++top] = obj.l;
-                stack[++top] = p - 1;
-            }
-            if (p + 1 < obj.h) {
-                stack[++top] = p + 1;
-                stack[++top] = obj.h;
-            }
-        }
-    }
+function quickSort(obj) {
+  let a = []
+  let b = []
+  a = obj.items.slice(obj.pivot,obj.items.length)
+  b = obj.items.slice(0,obj.pivot)
+  console.log(a)
+  console.log(b)
+  if(a.length > 1){
+    partition(obj,obj.pivot,obj.items.length-1)
+  }
+  if(b.length>1){
+    partition(obj,0,obj.pivot-1)
+  }
 }
 ///////////////
 //BUBBLESORT//

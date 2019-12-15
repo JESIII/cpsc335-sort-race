@@ -101,7 +101,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     let currlen
     let mrgstep = 0;
     let bbswap = []
-    let qsswap = []
+    let qsfinal = []
     let mrgswap = []
     drawBubbleText( cx1, "BUBBLESORT", 45, 20 )
     drawMrgText( cx2, "MERGESORT", 45, 20,0 )
@@ -110,7 +110,7 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
       ////////////////////////
       //MERGESORT////////////
       ////////////////////////
-      /*
+
       //console.log(bbsmgr.items)
       if(counter==0){console.log(mrgmgr.result)
       drawMrgArray(mrgmgr.result, mrgstep)
@@ -179,16 +179,17 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
         drawMrgText( cx2, "Mergesort done in "+ counter+ " passes!", 0, mrgstep*25+45,0 )
         mergesortcomplete = false
       }
-      */
-      //console.log(bbsmgr.items)
+    //console.log(bbsmgr.items)
     ////////////////////////
     //QUICKSORT////////////
     ////////////////////////
-    quickSortIterative(qsmgr)
+    //console.log(qsmgr.items)
+    //console.log(qsfinal)
+
+    //quickSort(qsmgr)
     ////////////////////////
     //BUBBLESORT////////////
     ////////////////////////
-    /*
     if(bbsmgr.done == false){
       bssteps++
       console.log(bbsmgr.items)
@@ -208,9 +209,9 @@ This is a sorting race between 3 different sorting algorithms: Mergesort, Quicks
     }else{
 
     }
-    */
-      counter++
-    if (counter == 14){
+
+    counter++
+    if (counter == 30){
       clearInterval(loopDrawRect);
     }
   }, 100)
