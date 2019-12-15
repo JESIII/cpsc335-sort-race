@@ -16,7 +16,3 @@ body {
 canvas {
   background-color: black;
 }
-.column {
-  float: left;
-  width: 33.33%;
-}
